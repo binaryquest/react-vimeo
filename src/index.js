@@ -8,10 +8,12 @@ class Vimeo extends React.Component {
     super(props);
 
     this.refContainer = this.refContainer.bind(this);
+    this.state = { isClicked: false };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.createPlayer();
+    // this.createPlayer();
   }
 
   componentDidUpdate(prevProps) {
@@ -22,7 +24,13 @@ class Vimeo extends React.Component {
   }
 
   componentWillUnmount() {
-    this.player.destroy();
+    if (this.player !== undefined) {
+      this.player.destroy();
+    }
+  }
+
+  handleClick() {
+    this.createPlayer();
   }
 
   /**
@@ -62,6 +70,11 @@ class Vimeo extends React.Component {
    */
   updateProps(propNames) {
     const { player } = this;
+
+    if (player === undefined) {
+      return;
+    }
+
     propNames.forEach((name) => {
       // eslint-disable-next-line react/destructuring-assignment
       const value = this.props[name];
@@ -154,6 +167,10 @@ class Vimeo extends React.Component {
     if (typeof volume === 'number') {
       this.updateProps(['volume']);
     }
+
+    this.setState({
+      isClicked: true,
+    });
   }
 
   /**
@@ -164,15 +181,21 @@ class Vimeo extends React.Component {
   }
 
   render() {
-    const { id, className, style } = this.props;
+    const { isClicked } = this.state;
+    const {
+      id, className, style, backgroundImage, classNameImage,
+    } = this.props;
+
+    let condArea = <div />;
+
+    if (!isClicked && backgroundImage) {
+      condArea = <div className={classNameImage}><a onClick={this.handleClick} role="button" ><img src={backgroundImage} alt="loading" /></a></div>;
+    }
 
     return (
-      <div
-        id={id}
-        className={className}
-        style={style}
-        ref={this.refContainer}
-      />
+      <div id={id} className={className} style={style} ref={this.refContainer}>
+        {condArea}
+      </div>
     );
   }
 }
@@ -194,6 +217,10 @@ if (process.env.NODE_ENV !== 'production') {
      * CSS className for the player element.
      */
     className: PropTypes.string,
+    /**
+     * CSS className for the player element.
+     */
+    classNameImage: PropTypes.string,
     /**
      * Inline style for container element.
      */
@@ -286,6 +313,11 @@ if (process.env.NODE_ENV !== 'production') {
      * Starts in a background state with no controls to help with autoplay
      */
     background: PropTypes.bool,
+
+    /**
+     * Background Image
+     */
+    backgroundImage: PropTypes.string,
 
     /**
      * Enable responsive mode and resize according to parent element (experimental)
@@ -422,6 +454,7 @@ Vimeo.defaultProps = {
   pip: false,
   playsInline: true,
   transparent: true,
+  backgroundImage: null,
 };
 
 export default Vimeo;

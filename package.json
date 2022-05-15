@@ -1,6 +1,6 @@
 {
-  "name": "@u-wave/react-vimeo",
-  "version": "0.9.8",
+  "name": "@binaryquest/react-vimeo",
+  "version": "1.0.2",
   "description": "Vimeo player component for React.",
   "main": "dist/react-vimeo.js",
   "module": "dist/react-vimeo.es.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/u-wave/react-vimeo.git"
+    "url": "git+https://github.com/binaryquest/react-vimeo.git"
   },
   "keywords": [
     "youtube",
@@ -26,12 +26,12 @@
     "react-component",
     "video"
   ],
-  "author": "Renée Kooi <renee@kooi.me>",
+  "author": "Sazzad Hossain",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/u-wave/react-vimeo/issues"
+    "url": "https://github.com/binaryquest/react-vimeo/issues"
   },
-  "homepage": "https://github.com/u-wave/react-vimeo#readme",
+  "homepage": "https://github.com/binaryquest/react-vimeo#readme",
   "dependencies": {
     "@types/react": "^17.0.0 || ^18.0.0",
     "@types/vimeo__player": "^2.10.0",
